@@ -1,0 +1,30 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  push:
+    branches: [develop, main]
+
+jobs:
+  pull-request-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: clean
+        run: make clean
+
+      - name: install npm
+        run: make install-npm
+
+      - name: Spell check Markdown files
+        run: make spellcheck-markdown
+
+      - name: Lint Markdown files
+        run: make lint-markdown
+
+      - name: Editor config check
+        run: make editorconfig-check
