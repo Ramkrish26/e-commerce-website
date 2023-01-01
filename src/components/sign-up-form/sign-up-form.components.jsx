@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 import FormInput from "../form-input/form-input.component";
-import './sign-up-form.styles.scss'
 import Button from "../button/button.component";
+
+import './sign-up-form.styles.scss'
 
 import { createAuthUsingMailAndPassword, createUserDocumentFromAuth } from "../../utils/fireBase/firebase.util";
 
@@ -36,8 +37,14 @@ const SignUpForm = () => {
             return;
         }
 
+        if (password.length <= 6) {
+            alert('Password should be greater than 6 characters');
+            return;
+        }
+
         try {
             const { user } = await createAuthUsingMailAndPassword(email, password);
+
             await createUserDocumentFromAuth(user, { displayName });
             resetFormFields();
 
@@ -54,7 +61,7 @@ const SignUpForm = () => {
         <div className="sign-up-container">
             <h2>Don't have an account</h2>
             <span>Sign up with email and password</span>
-            <form onSubmit={() => { handleSubmit() }}>
+            <form onSubmit={handleSubmit}>
                 <FormInput label='Display Name' required type='text' name='displayName' onChange={handleChange} value={displayName} />
                 <FormInput label='Email' required type='email' name='email' onChange={handleChange} value={email} />
                 <FormInput label='Password' required type='password' name='password' onChange={handleChange} value={password} />
