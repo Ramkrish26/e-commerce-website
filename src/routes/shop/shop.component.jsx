@@ -1,4 +1,4 @@
-import { ProductContext } from '../../components/contexts/products.context';
+import { ProductContext } from '../../contexts/products.context';
 import ProductCard from '../../components/product-card/prodcut-card.component';
 import { useContext } from 'react';
 import '../shop/shop.styles.scss'
